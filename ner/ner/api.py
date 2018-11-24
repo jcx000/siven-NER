@@ -4,8 +4,8 @@ API
 ----
 封装对外提供接口
 """
-from corpus import get_corpus
-from model import get_model
+from ner.corpus import get_corpus
+from ner.model import get_model
 
 __all__ = ["pre_process", "train", "recognize"]
 

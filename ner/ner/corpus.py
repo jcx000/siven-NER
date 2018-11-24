@@ -5,8 +5,8 @@ CORPUS
 对语料处理的封装
 """
 import re
-from config import get_config
-from util import q_to_b
+from ner.config import get_config
+from ner.util import q_to_b
 
 __corpus = None
 
@@ -22,7 +22,7 @@ class Corpus:
     @classmethod
     def pre_process(cls):
         """
-        语料预处理 
+        语料预处理
         """
         train_corpus_path = cls._config.get('ner', 'train_corpus_path')
         lines = cls.read_corpus_from_file(train_corpus_path)
@@ -39,7 +39,7 @@ class Corpus:
     @classmethod
     def process_k(cls, words):
         """
-        处理大粒度分词 
+        处理大粒度分词
         """
         pro_words = []
         index = 0
@@ -65,7 +65,7 @@ class Corpus:
     @classmethod
     def process_nr(cls, words):
         """
-        处理姓名 
+        处理姓名
         """
         pro_words = []
         index = 0
@@ -141,7 +141,7 @@ class Corpus:
     @classmethod
     def initialize(cls):
         """
-        初始化 
+        初始化
         """
         corpus_path = cls._config.get('ner', 'process_corpus_path')
         lines = cls.read_corpus_from_file(corpus_path)
@@ -152,7 +152,7 @@ class Corpus:
     @classmethod
     def init_sequence(cls, words_list):
         """
-        初始化字序列、词性序列、标记序列 
+        初始化字序列、词性序列、标记序列
         """
         words_seq = [[word.split(u'/')[0] for word in words] for words in words_list]
         pos_seq = [[word.split(u'/')[1] for word in words] for words in words_list]

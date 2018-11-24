@@ -1,23 +1,33 @@
 # coding:utf-8
-import requests
 from ner.api import recognize
+from ner.Clustering import *
 
-file_object = open('E:\\ProgramCode\\Python\\Newsdata\\test.txt', encoding="utf-8", errors='ignore')
-for i in range(50):
-    sentence = file_object.readline()
-    cols = sentence.split('\t')
-    predict = recognize(cols[4])
+file_object = open('E:\\ProgramCode\\Python\\Newsdata\\test.txt',
+                   'r', encoding="utf-8", errors='ignore')
 
-    address = predict['G'].pop()
-    print(address)
-    url= 'http://api.map.baidu.com/geocoder?output=json&key=obe7bB3EW1O38CWxwhBSA7Y37cnYT4od&address='+str(address)
-    response = requests.get(url)
-    answer = response.json()
+file_write = open("newtab.txt", 'a', encoding="utf-8", errors='ignore')
+
+file_index = open('log.txt', 'r+', encoding='utf-8', errors='ignore')
+
+strtmp = file_index.read()
+index = int((strtmp.split(','))[-1])
+file_object.seek(index, 0)
+
+mark = 0
+while(mark < 2000):
     try:
-        lon = float(answer['result']['location']['lng'])
-        lat = float(answer['result']['location']['lat'])
-        print(lon,lat)
+        sentence = file_object.readline()
+        if mark % 5 == 0:
+            file_index.seek(0)
+            file_index.truncate()
+        file_index.write(',' + str(file_object.tell()))
+        file_index.flush()
+        cols = sentence.split('\t')
+        predict = recognize(cols[4])
+        address = predict['G'].pop()
+        newTable(file_write, cols, address)
+        mark = mark + 1
     except Exception:
-        print("索引失败")
+        continue
 
     print("\n")

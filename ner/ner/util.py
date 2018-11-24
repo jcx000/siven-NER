@@ -4,6 +4,8 @@ UTIL
 ----
 工具封装
 """
+import datetime
+import time
 
 
 def q_to_b(q_str):
@@ -30,3 +32,13 @@ def b_to_q(b_str):
             inside_code += 65248
         q_str += chr(inside_code)
     return q_str
+
+
+def date_to_num(dateStr):
+
+    dateStr = dateStr[1:-1]
+    # 转换成时间数组
+    timeArray = time.strptime(dateStr, "%Y/%m/%d %H:%M:%S")
+    # 转换成时间戳
+    timestamp = time.mktime(timeArray)
+    return str(timestamp)

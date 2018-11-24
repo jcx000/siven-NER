@@ -7,9 +7,9 @@ NER
 import sklearn_crfsuite
 from sklearn_crfsuite import metrics
 from sklearn.externals import joblib
-from util import q_to_b
-from corpus import get_corpus
-from config import get_config
+from ner.util import q_to_b
+from ner.corpus import get_corpus
+from ner.config import get_config
 
 __model = None
 
