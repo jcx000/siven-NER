@@ -16,10 +16,14 @@
 #              transform=plt.gca().transAxes, size=10, horizontalalignment='right')
 # plt.show()
 
-f = open("E:\\ProgramCode\\Python\\Newsdata\\test.txt",
-         'r', encoding="utf-8", errors='ignore')
+f = open("newtab.txt", 'r', encoding="utf-8", errors='ignore')
 
-mark = f.seek(10)
-print(f.read(10))
-f.seek(mark)
-print(f.read(10))
+full_txt = f.read()
+
+for i in range(15):
+    ntxt = full_txt.replace("\n\n","\n")
+    full_txt = ntxt.replace("\n\n","\n")
+f.close()
+
+f = open("format_tab.txt",'w',encoding="utf-8",errors='ignore')
+f.write(full_txt)
