@@ -1,6 +1,7 @@
 # coding:utf-8
 import requests
 from ner.util import date_to_num
+import pandas as pd
 
 
 def newTable(file_write, cols, address):
@@ -26,3 +27,19 @@ def newTable(file_write, cols, address):
         print(lon, lat)
     except Exception:
         print("索引失败")
+
+
+def normalization(dataMat):
+    arraytime = dataMat[:, 0]
+    arraylon = dataMat[:, 2]
+    mintime = arraytime.min()
+    length = arraytime.max() - arraytime.min()
+    ratio = 90.0 / length
+    for i in range(len(arraytime)):
+        arraytime[i] = (arraytime[i] - mintime) * ratio
+    for i in range(len(arraylon)):
+        arraylon[i] = arraylon[i] * 2
+
+    dataMat[:, 0] = arraytime
+    dataMat[:, 2] = arraylon
+    return dataMat
